@@ -17,7 +17,7 @@ By completing this tutorial, you will learn:
 
 - **Basic document schema definition**: Creating a schema file (`.sd`) to define document structure
 - **Simple field types**: Using `string` and `float` field types
-- **Indexing and attribute configuration**: Understanding the difference between `index` and `attribute` indexing modes
+- **Indexing and attribute configuration**: Understanding the difference between `index` and `attribute` 
 
 ## Project Structure
 
