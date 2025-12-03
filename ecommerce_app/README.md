@@ -4,28 +4,9 @@ This project is **Chapter 2** in the Vespa 101 series.
 Chapter 1 (`simple_ecommerce_app`) introduced a tiny schema and very small dataset.  
 This chapter upgrades to a **more realistic e-commerce catalog**, larger data, and multiple ingestion options.
 
-The goal here is **not** to re-teach the basics from Chapter 1, but to show how to:
-- Map a **real CSV product catalog** to a Vespa schema
-- Deploy a slightly richer **product schema**
-- Feed data in **two ways**:
-  - Directly from **JSONL**
-  - Via **Logstash** reading the original CSV
-
----
 
 ## Learning Objectives (Chapter 2)
 
-After completing this chapter you should be able to:
-
-- **Understand a richer product schema** with multiple fields (name, brand, price, etc.)
-- **Align schema fields with a CSV header row**
-- **Deploy** a Vespa app that looks more like a real catalog
-- **Convert CSV → JSONL** and feed to Vespa
-- **Use Logstash** to stream data from CSV into Vespa
-
-If any of these feel unfamiliar, quickly skim `simple_ecommerce_app/README.md` first.
-
----
 
 ## Project Structure
 
