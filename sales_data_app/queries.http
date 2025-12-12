@@ -1,0 +1,124 @@
+# global variables
+@vespa_url = https://b4c2f48f.c66e5c39.z.vespa-app.cloud
+
+### group by customer. Show first 7
+POST {{vespa_url}}/search/
+Content-Type: application/json
+
+{
+  "yql": "select * from purchase where true | all(
+    group(customer)
+    max(3)
+    each(
+      output(count())
+    )
+  )"
+}
+
+### order by count descending
+POST {{vespa_url}}/search/
+Content-Type: application/json
+
+{
+  "yql": "select * from purchase where true | all(
+    group(customer)
+    order(-count())
+    max(7)
+    each(
+        output(count())
+    )
+  )"
+}
+
+### use total $$$ instead of count. But output count as well
+POST {{vespa_url}}/search/
+Content-Type: application/json
+
+{
+  "yql": "select * from purchase where true | all(
+    group(customer)
+    order(-sum(price))
+    each(
+        output(sum(price))
+        output(count())
+    )
+  )"
+}
+
+### sales by day, by customer
+POST {{vespa_url}}/search/
+Content-Type: application/json
+
+{
+  "yql": "select * from purchase where true | all(
+    group(time.date(date))
+    each(
+        output(sum(price))
+        output(count())
+        all(
+            group(customer)
+            order(-sum(price))
+            each(
+                output(sum(price) as(revenue_per_customer_per_day))
+                output(count())
+            )
+        )
+    )
+  )"
+}
+
+### frequent customers, but also show 7 sample orders --> limit 0 to not show order list below
+POST {{vespa_url}}/search/
+Content-Type: application/json
+
+{
+  "yql": "select * from purchase where true limit 0 | all(
+    group(customer)
+    order(-count())
+    each(
+        output(count())
+        max(7)
+        each(
+            output(summary())
+        )
+    )
+  )"
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### customer cardinality (HyperLogLog++)
+POST {{vespa_url}}/search/
+Content-Type: application/json
+
+{
+  "yql": "select * from purchase where true | all(
+    group(customer)
+    output(count())
+  )"
+}

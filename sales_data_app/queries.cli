@@ -1,0 +1,59 @@
+### group by customer. Show first 7
+vespa query "yql=select * from purchase where true | all(
+    group(customer)
+    max(7)
+    each(
+      output(count())
+    )
+  )"
+
+vespa query "yql=select * from purchase where true limit 0 | all(
+    group(customer)
+    order(-count())
+    max(7)
+    each(
+        output(count() as(count_per_item))
+    )
+  )"
+
+### use total $$$ instead of count. But output count as well
+vespa query "yql=select * from purchase where true limit 0 | all(
+    group(customer)
+    order(-sum(price))
+    each(
+        output(sum(price) as(revenue))
+        output(count())
+    )
+  )"
+
+### sales by day, by customer
+vespa query "yql=select * from purchase where true limit 0 | all(
+    group(time.date(date))
+    each(
+        output(sum(price) as(revenue_per_day))
+        output(count())
+        all(
+            group(customer)
+            order(-sum(price))
+            each(
+                output(sum(price) as(revenue_per_customer_per_day))
+                output(count())
+            )
+        )
+    )
+  )" | jq ".root.children[].children[].children[]"
+
+
+### top customers, but also show 7 sample orders
+vespa query "yql=select * from purchase where true limit 0 | all(
+    group(customer)
+    order(-sum(price))
+    each(
+        output(sum(price) as(revenue))
+        output(count())
+        max(7)
+        each(
+            output(summary())
+        )
+    )
+  )"

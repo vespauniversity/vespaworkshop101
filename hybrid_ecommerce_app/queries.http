@@ -1,0 +1,36 @@
+# global variables
+@vespa_url = https://d29040bd.c66e5c39.z.vespa-app.cloud
+
+### did we successfully feed?
+POST {{vespa_url}}/search/
+Content-Type: application/json
+
+{
+  "yql": "select * from product where true",
+  "presentation.summary": "medium"
+}
+
+### ANN with query-time embedding
+POST {{vespa_url}}/search/
+Content-Type: application/json
+
+{
+    "yql": "select * from product where {targetHits:100}nearestNeighbor(embedding, q_embedding)",
+    "ranking.profile": "use_closeness",
+    "presentation.summary": "medium",
+    "query_text": "Mini Stencil",
+    "input.query(q_embedding)": "embed(@query_text)"
+}
+
+
+### RRF Hybrid Search
+POST {{vespa_url}}/search/
+Content-Type: application/json
+
+{
+    "yql": "select * from product where title contains @query_text OR ({targetHits:100}nearestNeighbor(embedding, q_embedding))",
+    "ranking.profile": "rrf",
+    "presentation.summary": "medium",
+    "query_text": "Mini Stencil",
+    "input.query(q_embedding)": "embed(@query_text)"
+}

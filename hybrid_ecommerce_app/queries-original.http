@@ -1,0 +1,61 @@
+### did we successfully feed?
+POST https://<mTLS_ENDPOINT_DNS_GOES_HERE>/search/
+Content-Type: application/json
+
+{
+  "yql": "select * from product where true",
+  "presentation.summary": "medium"
+}
+
+### ANN
+POST https://<mTLS_ENDPOINT_DNS_GOES_HERE>/search/
+Content-Type: application/json
+
+{
+    "yql": "select * from product where {targetHits:100}nearestNeighbor(embedding_field,embedding_query_variable)",
+    "ranking.profile": "use_closeness",
+    "presentation.summary": "medium",
+    "approximate_query_string": "Mini Stencil",
+    "input.query(embedding_query_variable)": "embed(@approximate_query_string)"
+}
+
+
+### RRF
+POST https://<mTLS_ENDPOINT_DNS_GOES_HERE>/search/
+Content-Type: application/json
+
+{
+    "yql": "select * from product where title contains @query_text OR ({targetHits:100}nearestNeighbor(EMBEDDING_FIELD,EMBEDDING_QUERY_VARIABLE))",
+    "ranking.profile": "HYBRID_SEARCH_RANK_PROFILE",
+    "presentation.summary": "medium",
+    "query_text": "Mini Stencil",
+    "input.query(embedding_query_variable)": "embed(@query_text)"
+}
+
+### OpenAI command
+# vespa query \
+#     --timeout 60 \
+#     --header="X-LLM-API-KEY:insert-api-key-here" \
+#     query="what kind of mini stencils do you have for sale?" \
+#     presentation.summary=medium \
+#     hits=5 \
+#     searchChain=openai_search_chain \
+#     format=sse \
+#     traceLevel=1
+
+### OpenAI HTTP command with more options (e.g. hybrid search). The response comes back as a stream
+POST https://<mTLS_ENDPOINT_DNS_GOES_HERE>/search/
+Content-Type: application/json
+X-LLM-API-KEY: insert-api-key-here
+
+{
+    "yql": "select * from product where title contains @query_text OR ({targetHits:100}nearestNeighbor(EMBEDDING_FIELD,EMBEDDING_QUERY_VARIABLE))",
+    "ranking.profile": "HYBRID_SEARCH_RANK_PROFILE",
+    "presentation.summary": "medium",
+    "query_text": "Mini Stencil",
+    "input.query(embedding_query_variable)": "embed(@query_text)",
+    "query": "what kind of mini stencils do you have for sale?",
+    "searchChain": "openai_search_chain",
+    "format": "sse",
+    "traceLevel": 0
+}
