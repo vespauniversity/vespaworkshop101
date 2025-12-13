@@ -306,7 +306,7 @@ field product_name type string {
 - See [`docs/SCHEMAS_REF.md`](docs/SCHEMAS_REF.md#43-useful-field-options-beginner-set) for matching options
 - Official Docs: [Matching](https://docs.vespa.ai/en/reference/schemas/schemas.html#match)
 
-## Prerequisites
+## LAB Prerequisites (add basic query)
 
 Before starting, ensure you have:
 
@@ -329,6 +329,11 @@ Before starting, ensure you have:
 2. **Vespa Cloud account**:
    - Sign up at https://cloud.vespa.ai/
    - Free tier available at https://vespa.ai/free-trial/
+  
+3. **Clone this repository**:
+   ```
+   git clone https://github.com/vespauniversity/vespaworkshop101/
+   ```
 
 ## Step 1 – Setup and Configuration
 
@@ -355,6 +360,7 @@ Before starting, ensure you have:
 
 2. **Authenticate**:
    ```bash
+   cd simple-ecommerce-app/app
    vespa auth login
    vespa auth cert
    # generate/copy the cert from .vespa dirs to this application if needed
@@ -370,9 +376,9 @@ Before starting, ensure you have:
 
 ## Step 2 – Deploy the Application
 
-1. **Navigate to the application directory**:
+1. **Make sure that you are in the application directory**:
    ```bash
-   cd app
+   cd simple-ecommerce-app/app
    ```
 
 2. **Deploy the application**:
@@ -392,6 +398,10 @@ Before starting, ensure you have:
 The deployment should show the application is ready. This creates:
 - A container cluster for handling queries and document operations
 - A content cluster for storing and indexing documents
+- Run a test query below. For now, you will get no documents because we haven't indexed any.
+  ```
+  vespa query -v 'yql=select * from sources * where true'
+  ```
 
 ## Step 3 – Feed Data to Vespa
 
@@ -433,8 +443,6 @@ The JSONL file contains documents in the format:
 
 ![vespa_feed](img/vespa_feed.png)
 
-
-**Note**: The sample JSONL file uses `title` and `price` fields, but the schema expects `product_name` and `avg_rating`. You may need to update the data to match the schema.
 
 ### Verify Documents Are Indexed
 
