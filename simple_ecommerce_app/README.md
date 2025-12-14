@@ -53,13 +53,14 @@ simple_ecommerce_app/
 This chapter introduces basic field types:
 - **`string`**: Text data (e.g., product names)
 - **`float`**: Decimal numbers (e.g., ratings, prices)
+- Vespa also supports `int`, `long`, `double`, `bool`, `array<>`, `map<>`, and `tensor<>`, which will be introduced later.
 
 ### Indexing and Attribute Configuration
 
 **Indexing modes** control how fields are stored and accessed:
 - **`index`**: Full-text indexed for search (enables text search queries)
 - **`attribute`**: In-memory storage for fast filtering, sorting, and grouping
-- **`summary`**: Stored and returned in query results (for display)
+- **`summary`**: makes fields available in query results (for display)
 
 ### Document API Operations
 
@@ -71,7 +72,7 @@ This chapter introduces basic field types:
 
 ### Deploying Applications
 
-**Deployment** makes your Vespa application available for use. Use `vespa deploy` to deploy your schema and configuration to Vespa.
+**Deployment** makes your Vespa application available for use. Use `vespa deploy` to deploy your schema and configuration to Vespa. In Vespa Cloud, deployment also triggers **validation and provisioning**
 
 ### Feeding Documents
 
