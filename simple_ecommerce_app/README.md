@@ -152,11 +152,11 @@ schema product {
 ### Field Definitions
 
 - **`product_name`** (string):
-  - `summary`: Field is stored and returned in search results (you can display it to users)
+  - `summary`: Makes the field retrievable in query results (you can display it to users)
   - `index`: Field is indexed for full-text search (you can search within this field)
   
 - **`avg_rating`** (float):
-  - `summary`: Field is stored and returned in search results (you can display it to users)
+  - `summary`: Makes the field retrievable in query results (you can display it to users)
   - `attribute`: Field is stored in-memory for fast filtering, sorting, and grouping (you can filter by rating, sort by rating, etc.)
 
 **Learn More:**
@@ -206,7 +206,7 @@ For example:
 - **Document**: The actual data you store (JSON format)
 - **Schema Definition**: The blueprint that defines document structure
 - **Indexing Pipeline**: How Vespa processes and stores your data
-- **Summary Store**: Where retrievable data is stored
+- **Summary Store**: Logical layer Vespa uses to retrieve fields marked as `summary`
 - **Attribute Store**: Where filterable/sortable data is stored in-memory
 - **Search Index**: Where searchable data is stored
 
@@ -233,7 +233,7 @@ For example:
 | Feature | `index` | `attribute` |
 |---------|---------|-------------|
 | **Primary Use** | Full-text search | Filtering, sorting, grouping |
-| **Storage** | Search index (disk-based) | In-memory column store |
+| **Storage** | Search index (disk-backed with memory structures / OS cache) | In-memory column store |
 | **Speed** | Fast for text search | Very fast for exact matches |
 | **Memory** | Lower memory usage | Higher memory usage |
 | **Use Cases** | Search within text fields | Filter by price, sort by rating, group by category |
@@ -251,7 +251,8 @@ field title type string {
 
 // Filterable/sortable field
 field price type float {
-    indexing: summary | attribute | attribute: fast-search
+    indexing: summary | attribute
+    attribute: fast-search
 }
 
 // Both searchable AND filterable
@@ -273,9 +274,9 @@ field category type string {
 
 **Key Match Modes:**
 
-1. **Exact Match**: Matches the entire phrase exactly as written
+1. **Exact Match**: Matches exact tokens without linguistic processing
    - Query: `"laptop computer"` → Only matches documents with exactly "laptop computer"
-   - Use when: You need precise phrase matching
+   - Use when: You need precise tokens matching
 
 2. **Word Match**: Matches individual words (most common)
    - Query: `laptop computer` → Matches documents containing both "laptop" AND "computer"
@@ -287,7 +288,7 @@ field category type string {
 
 4. **Substring Match**: Matches any part of the text
    - Query: `top` → Matches "laptop", "desktop", "top-rated"
-   - Use when: You need flexible matching (slower, use sparingly)
+   - Use when: You need flexible matching (slower, use sparingly at scale)
 
 **Notes:** Match modes are like different search behaviors:
 - **Exact** = Google search with quotes: `"exact phrase"`
