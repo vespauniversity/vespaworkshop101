@@ -16,9 +16,7 @@ The goal here is **not** to re-teach the basics from Chapter 1, but to show how 
 After completing this chapter you should be able to:
 
 - **Understand a richer product schema** with multiple fields (name, brand, price, etc.)
-- **Align schema fields with a CSV header row**
 - **Deploy** a Vespa app that looks more like a real catalog **on Vespa Cloud**
-- **Convert CSV → JSONL** and feed to Vespa Cloud
 
 If any of these feel unfamiliar, quickly skim `simple_ecommerce_app/README.md` first.
 
