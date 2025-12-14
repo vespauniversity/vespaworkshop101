@@ -508,6 +508,11 @@ vespa document get id:ecommerce:product::1
 
 ![vespa_remove_2](img/vespa_remove_2.png)
 
+Rerun feed to restore the document
+
+```bash
+vespa feed ../dataset/multiple-products.jsonl
+```
 
 ## Step 5 – Querying Data
 
