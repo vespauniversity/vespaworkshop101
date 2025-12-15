@@ -8,6 +8,7 @@ The goal here is **not** to re-teach the basics from Chapter 1, but to show how 
 - Map a **real CSV product catalog** to a Vespa schema
 - Deploy a slightly richer **product schema** to Vespa Cloud
 - Feed data from **JSONL** into Vespa Cloud
+- Run queries from a Rest client
 
 ---
 
