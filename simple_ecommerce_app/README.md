@@ -201,8 +201,8 @@ For example:
 **Notes:** When you feed a document to Vespa:
 1. Vespa reads your **schema definition** to understand the structure
 2. It processes each field according to its **indexing directives**:
-   - Fields with `summary` → stored in **summary** (for retrieval)
-   - Fields with `attribute` → stored in **attribute** (for filtering/sorting)
+   - Fields with `summary` → are included in summary classes (for retrieval)
+   - Fields with `attribute` → stored in memory as attributes (for filtering/sorting)
    - Fields with `index` → stored in **search index** (for full-text search)
 3. When you query, Vespa uses these stores to find and return results
 
