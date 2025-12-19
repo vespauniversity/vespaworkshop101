@@ -188,21 +188,21 @@ For example:
 
 ![data_structure](img/data_structure.png)
 
-**What you're seeing:** This diagram illustrates the complete data flow and structure in Vespa which are Summary Store, Attribute Store, and Search Index. From how documents are stored to how they're retrieved and searched.
+**What you're seeing:** This diagram illustrates the complete data flow and structure in Vespa which are Summary, Attribute, and Search Index. From how documents are stored to how they're retrieved and searched.
 
 **Key Concepts:**
 - **Document**: The actual data you store (JSON format)
 - **Schema Definition**: The blueprint that defines document structure
 - **Indexing Pipeline**: How Vespa processes and stores your data
-- **Summary Store**: Logical layer Vespa uses to retrieve fields marked as `summary`
-- **Attribute Store**: Where filterable/sortable data is stored in-memory
+- **Summary**: Logical layer Vespa uses to retrieve fields marked as `summary`
+- **Attribute**: In-memory data structures used for filtering, sorting and grouping
 - **Search Index**: Where searchable data is stored
 
 **Notes:** When you feed a document to Vespa:
 1. Vespa reads your **schema definition** to understand the structure
 2. It processes each field according to its **indexing directives**:
-   - Fields with `summary` → stored in **summary store** (for retrieval)
-   - Fields with `attribute` → stored in **attribute store** (for filtering/sorting)
+   - Fields with `summary` → stored in **summary** (for retrieval)
+   - Fields with `attribute` → stored in **attribute** (for filtering/sorting)
    - Fields with `index` → stored in **search index** (for full-text search)
 3. When you query, Vespa uses these stores to find and return results
 
