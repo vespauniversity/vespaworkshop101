@@ -27,9 +27,6 @@ simple_ecommerce_app/
 ├── dataset/
 │   ├── multiple-products-original.jsonl   # Original sample batch data
 │   └── multiple-products.jsonl            # Adjusted batch data for this tutorial
-├── docs/
-│   ├── SCHEMAS.md                         # Extended explanation of schemas
-│   └── SCHEMAS_REF.md                     # Schema reference notes
 ├── img/                                   # Screenshots used in this README
 ├── sample-product.json                    # Example single document
 └── README.md                              # This file
@@ -86,7 +83,7 @@ This chapter introduces basic field types:
 
 ## Overview
 
-This section introduces the fundamental concepts of Vespa schemas. If you're new to Vespa, we recommend reading the detailed explanations in [`docs/SCHEMAS.md`](docs/SCHEMAS.md) and [`docs/SCHEMAS_REF.md`](docs/SCHEMAS_REF.md) for a deeper understanding.
+This section introduces the fundamental concepts of Vespa schemas. If you're new to Vespa, we recommend reading the detailed explanations in official docs [SCHEMAS](https://docs.vespa.ai/en/schemas.html) and [SCHEMAS_REF](https://docs.vespa.ai/en/reference/schema-reference.html) for a deeper understanding.
 
 ### Conceptual Overview
 
@@ -109,9 +106,6 @@ This section introduces the fundamental concepts of Vespa schemas. If you're new
 
 This conceptual map helps you understand how all the pieces fit together in a Vespa application, from initial setup to querying your data.
 
-**Learn More:**
-- See [`docs/SCHEMAS.md`](docs/SCHEMAS.md) for detailed explanation of schema concepts
-- See the sections below for detailed explanations of each component
 
 ### Document Types Overview
 
@@ -145,9 +139,6 @@ schema product {
 }
 ```
 
-**Learn More:**
-- See [`docs/SCHEMAS.md`](docs/SCHEMAS.md#1-document-type) for detailed explanation of document types
-- See [`docs/SCHEMAS_REF.md`](docs/SCHEMAS_REF.md#3-document-block) for the document block reference
 
 ### Field Definitions
 
@@ -159,9 +150,6 @@ schema product {
   - `summary`: Makes the field retrievable in query results (you can display it to users)
   - `attribute`: Field is stored in-memory for fast filtering, sorting, and grouping (you can filter by rating, sort by rating, etc.)
 
-**Learn More:**
-- See [`docs/SCHEMAS.md`](docs/SCHEMAS.md#3-indexing-directives-critical-for-beginners) for a detailed explanation of indexing directives
-- See [`docs/SCHEMAS_REF.md`](docs/SCHEMAS_REF.md#42-indexing-quick-recap-from-schemasmd) for indexing options reference
 
 ### Document API Overview
 
@@ -194,7 +182,7 @@ For example:
 **Learn More:**
 - Official Docs: [Document API Guide](https://docs.vespa.ai/en/writing/document-v1-api-guide.html)
 - Official Docs: [Document API Reference](https://docs.vespa.ai/en/reference/api/document-v1.html)
-- See [`docs/SCHEMAS.md`](docs/SCHEMAS.md) for understanding document structure
+  
 
 ### Data Structure Overview
 
@@ -218,9 +206,6 @@ For example:
    - Fields with `index` → stored in **search index** (for full-text search)
 3. When you query, Vespa uses these stores to find and return results
 
-**Learn More:**
-- See [`docs/SCHEMAS.md`](docs/SCHEMAS.md#3-indexing-directives-critical-for-beginners) for detailed explanation of indexing
-- See [`docs/SCHEMAS.md`](docs/SCHEMAS.md#vespa-schema-vs-other-databases) for comparison with other databases
 
 ### Index and Attribute Overview
 
@@ -262,8 +247,7 @@ field category type string {
 ```
 
 **Learn More:**
-- See [`docs/SCHEMAS.md`](docs/SCHEMAS.md#3-indexing-directives-critical-for-beginners) for comprehensive explanation
-- See [`docs/SCHEMAS.md`](docs/SCHEMAS.md#common-patterns) for real-world examples
+
 - Official Docs: [Indexing](https://docs.vespa.ai/en/indexing.html)
 
 ### Match Modes Overview
@@ -305,7 +289,6 @@ field product_name type string {
 ```
 
 **Learn More:**
-- See [`docs/SCHEMAS_REF.md`](docs/SCHEMAS_REF.md#43-useful-field-options-beginner-set) for matching options
 - Official Docs: [Matching](https://docs.vespa.ai/en/reference/schemas/schemas.html#match)
 
 ## LAB Prerequisites (add basic query)
@@ -751,6 +734,3 @@ After completing this tutorial, proceed to:
 
 **Key takeaway**: This chapter gives you the basic building blocks of a Vespa application – simple schema design, indexing modes, feeding, and querying.
 
-For more detailed explanations and reference material, see:
-- `docs/SCHEMAS.md` – step‑by‑step schema design and examples
-- `docs/SCHEMAS_REF.md` – concise reference for field types, indexing, and best practices
