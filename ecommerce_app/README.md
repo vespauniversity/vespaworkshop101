@@ -138,8 +138,6 @@ rank-profile default {
 - Results are automatically sorted by score (highest first)
 
 **Learn More:**
-- See [`docs/RANK.md`](docs/RANK.md#rank-profiles) for detailed explanation of rank profiles
-- See [`docs/RANK.md`](docs/RANK.md#ranking-phases) for information about ranking phases
 - Official Docs: [Ranking](https://docs.vespa.ai/en/ranking.html)
 
 ### BM25 Overview
@@ -176,8 +174,6 @@ rank-profile bm25 {
 - ✅ Standard text search requirements
 
 **Learn More:**
-- See [`docs/RANK.md`](docs/RANK.md#bm25-function) for detailed explanation of BM25
-- See [`docs/RANK.md`](docs/RANK.md#nativerank-vs-bm25) for comparison with nativeRank
 - Official Docs: [BM25](https://docs.vespa.ai/en/ranking/bm25.html)
 
 ### Native Rank Overview
@@ -214,8 +210,6 @@ rank-profile default {
 - ✅ Fast ranking is priority
 
 **Learn More:**
-- See [`docs/RANK.md`](docs/RANK.md#nativerank-function) for detailed explanation of nativeRank
-- See [`docs/RANK.md`](docs/RANK.md#nativerank-vs-bm25) for comparison with BM25
 - Official Docs: [nativeRank](https://docs.vespa.ai/en/reference/nativerank.html)
 
 ### Summaries Overview
@@ -228,7 +222,6 @@ rank-profile default {
 - **Summary**: Controls which fields are returned in search results
 - **Default Summary**: All fields with `summary` directive are returned
 - **Custom Summaries**: Named summary classes that return specific fields
-- **Summary Store**: Where summary data is stored for fast retrieval
 
 **Notes:** Think of summaries like predefined views:
 - **Default summary** = Automatically returns all fields marked with `summary` directive
@@ -274,7 +267,7 @@ vespa query 'yql=select * from product where ProductName contains "shirt"' 'summ
 
 **Dynamic Field Selection (YQL SELECT):**
 
-You can also dynamically select specific fields using YQL `select` clause (no schema definition needed). For more YQL query patterns and examples, see [`docs/YQL.md`](docs/YQL.md#selecting-fields):
+You can also dynamically select specific fields using YQL `select` clause. 
 
 ```bash
 # Select only ProductName and Price fields dynamically
@@ -301,11 +294,10 @@ vespa query 'yql=select ProductName, Price, PrimaryColor from product where Pric
 - ✅ Mobile vs desktop views
 
 **Learn More:**
-- See [`docs/RANK.md`](docs/RANK.md) for ranking context (summaries work with ranking)
 - Official Docs: [Document Summaries](https://docs.vespa.ai/en/document-summaries.html)
 - Official Docs: [Summary Reference](https://docs.vespa.ai/en/reference/schema-reference.html#summary)
 
-
+## LAB
 ## Step 1 – Review the Product Catalog (CSV)
 
 Open the CSV:
@@ -327,7 +319,7 @@ Your exact headers may differ, but the key idea:
 
 > **Every column you care about in the CSV should have a corresponding field in `product.sd`.**
 
-Example using a python script:
+Convert csv to jsonl. Here is an example using a python script:
 ```bash
 cd dataset
 
@@ -342,19 +334,21 @@ Open:
 - `app/schemas/product.sd`
 
 This file defines the **product document schema**.  
-Using what you learned in Chapter 1 and the docs in `simple_ecommerce_app/docs/SCHEMAS*.md`, do the following:
+Using what you learned in Chapter 1, do the following:
 
 1. **Create fields** that match important CSV columns  
-   - Example ideas (your names should reflect your actual CSV):
-     - `product_title` – `string`, `indexing: summary | index`
-     - `brand` – `string`, `indexing: summary | attribute`
-     - `category` – `string`, `indexing: summary | index | attribute`
-     - `price` – `double`, `indexing: summary | attribute | attribute: fast-search`
-     - `rating` – `double`, `indexing: summary | attribute`
+   - Example ideas (your field names should reflect your actual CSV):
+     - `ProductName` – `string`, `indexing: summary | index`
+     - `ProductBrand` – `string`, `indexing: summary | attribute`
+     - `Gender` – `string`, `indexing: summary | attribute`
+     - `Price` – `int`, `indexing: summary | attribute`
+     - `NumImages` – `int`, `indexing: summary | attribute`
+     - `Description` – `string`, `indexing: summary | index`
+     - `PrimaryColor` – `string`, `indexing: summary | attribute`
 
 2. **Choose indexing modes** per field  
    - **Searchable text** → `index | summary`
-   - **Filter/sort fields** → `attribute` (and sometimes `attribute: fast-search`)
+   - **Filter/sort fields** → `attribute` (if `attribute` is set `attribute: fast-search`, it adds B-tree or hash dictionary mapping values and allows the queries to jump directly to matching docs)
    - **Returned in results** → always include `summary`
 
 3. **Keep it simple first**  
@@ -362,8 +356,8 @@ Using what you learned in Chapter 1 and the docs in `simple_ecommerce_app/docs/S
    - You can customize ranking (BM25, price/rating boosts, etc.) after data is flowing.
 
 For detailed examples of fields and indexing, see:
-- `simple_ecommerce_app/docs/SCHEMAS.md`
-- `simple_ecommerce_app/docs/SCHEMAS_REF.md`
+- [SCHEMAS](https://docs.vespa.ai/en/schemas.html)
+- [SCHEMAS_REF](https://docs.vespa.ai/en/reference/schema-reference.html)
 
 ---
 
@@ -374,7 +368,7 @@ From the `ecommerce_app` root:
 > **Assumption**: You already configured **target** and **application name** in Chapter 1  
 > (for example `vespa config set target local` or `cloud`, and `vespa config set application <tenant>.<app>[.<instance>]`).
 
-If you **skipped Chapter 1 setup**, do that first using `simple_ecommerce_app/README.md` (Prerequisites + Setup).
+If you **skipped Chapter 1 setup**, do that first using [`simple_ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/simple_ecommerce_app) (Prerequisites + Setup).
 
 Then deploy this Chapter 2 app:
 
@@ -385,7 +379,7 @@ cd app
 vespa config set target cloud
 
 # set the application name something like:
-vespa config set application my-tenant.ecommerce-app
+vespa config set application mytenant.ecommerce-app
 
 # verify
 vespa config get target        # Should show: cloud
@@ -424,7 +418,7 @@ The resulting file:
 
 Each line is a JSON document in Vespa feed format (one product per line).
 
-> **📚 For detailed Document API and feeding examples**, see [`docs/API_GUIDE.md`](docs/API_GUIDE.md#batch-operations-feeding-multiple-documents).
+> **📚 For detailed Document API and feeding examples**, see [`API_GUIDE`](https://docs.vespa.ai/en/writing/document-v1-api-guide.html).
 
 Feed it:
 
@@ -436,7 +430,7 @@ vespa feed --progress 3 ../dataset/products.jsonl
 
 What this does:
 - Sends each JSONL line as a **put document** request to Vespa
-- Uses your updated `product.sd` schema to validate and index fields
+- Uses your `product.sd` schema to validate and index fields
 
 If feeding fails:
 - Check error messages – usually it means **field names/types don’t match** your schema
@@ -450,7 +444,7 @@ If feeding fails:
 
 Once feeding succeeds, you should verify that documents are searchable. There are **three common ways** to call YQL and the Vespa APIs in this project:
 
-> **📚 For detailed query examples and YQL patterns**, see [`docs/YQL.md`](docs/YQL.md). For HTTP API usage, see [`docs/API_GUIDE.md`](docs/API_GUIDE.md).
+> **📚 For detailed query examples and YQL patterns**, see [YQL](https://docs.vespa.ai/en/query-language.html). For HTTP API usage, see [API_GUIDE](https://docs.vespa.ai/en/writing/document-v1-api-guide.html).
 
 ### 5.1 Using the Vespa CLI (interactive)
 
@@ -478,7 +472,7 @@ These are similar in spirit to Chapter 1, but now operate on a **much richer sch
 
 If you prefer a one-shot script to test basic CRUD, you can also use the helper shell script:
 
-> **📚 For more Document API examples** (PUT, GET, UPDATE, DELETE), see [`docs/API_GUIDE.md`](docs/API_GUIDE.md#basic-operations).
+> **📚 For more Document API examples** (PUT, GET, UPDATE, DELETE), see [API_GUIDE](https://docs.vespa.ai/en/writing/document-v1-api-guide.html).
 
 ```bash
 # change directory to the app root
@@ -497,11 +491,11 @@ This script will:
 
 You can open `put-get-remove.sh` to see the exact `vespa document` and `vespa query` commands it runs.
 
-### 5.3 Using the HTTP REST API (example.http)
+### 5.3 Using the HTTP REST API (example.http) or Python, java client 
 
 You can also test queries and document APIs using the HTTP request file:
 
-> **📚 For comprehensive HTTP API examples and patterns**, see [`docs/API_GUIDE.md`](docs/API_GUIDE.md).
+> **📚 For comprehensive HTTP API examples and patterns**, see [API_GUIDE](https://docs.vespa.ai/en/writing/document-v1-api-guide.html). You can also use Python client [Vespa Python API (pyvespa)](https://vespa-engine.github.io/pyvespa/getting-started-pyvespa.html) or Java client as a REST client (not in the scope of this workshop).
 
 ```bash
 # In an HTTP client that supports .http files (e.g. VS Code REST Client)
@@ -527,9 +521,9 @@ In `example.http`:
 ```json
 {
     "rest-client.certificates": {
-         "e96a0df2.c66e5c39.z.vespa-app.cloud": { // <--- 1. Match this HOSTNAME to your request URL
-            "cert": "/home/user/.vespa/my-tenant.ecommerce-app.default/data-plane-public-cert.pem", // <--- 2. Path to your client certificate
-            "key":  "/home/user/.vespa/my-tenant.ecommerce-app.default/data-plane-private-key.pem", // <--- 3. Path to your private key
+         "e96ac6f2.c66b5c39.z.vespa-app.cloud": { // <--- 1. Match this HOSTNAME to your request URL
+            "cert": "/home/user/.vespa/mytenant.ecommerce-app.default/data-plane-public-cert.pem", // <--- 2. Path to your client certificate
+            "key":  "/home/user/.vespa/mytenant.ecommerce-app.default/data-plane-private-key.pem", // <--- 3. Path to your private key
             "passphrase": "your_key_passphrase" // <--- 4. (Optional) If your key is encrypted
         }
     }
@@ -560,7 +554,7 @@ You can open `curl-api-call.sh` to see the exact `curl` command it runs and cust
 
 Here are a few practice tasks you can try using any of the three methods above (CLI, shell script adaptation, or `example.http`):
 
-> **📚 Need more query examples?** See [`docs/YQL.md`](docs/YQL.md) for comprehensive YQL patterns. For ranking examples, see [`docs/RANK.md`](docs/RANK.md#common-ranking-patterns).
+> **📚 Need more query examples?** See [YQL](https://docs.vespa.ai/en/query-language.html) for comprehensive YQL patterns. For ranking examples, see [Rank](https://docs.vespa.ai/en/ranking.html).
 
 - **1. Make sure the returned shirts are blue or red**  
   - Hint: Use boolean logic on the `PrimaryColor` (or equivalent) field.  
@@ -588,7 +582,7 @@ Here are a few practice tasks you can try using any of the three methods above (
     `select ProductID, ProductName, Description, Price, PrimaryColor from product where true limit 5`
 
 - **6. Change the ranking to BM25 on `ProductName` and compare results**  
-  > **📚 For detailed ranking examples and BM25 configuration**, see [`docs/RANK.md`](docs/RANK.md#bm25-function) and [`docs/RANK.md`](docs/RANK.md#nativerank-vs-bm25).
+  > **📚 For detailed ranking examples and BM25 configuration**, see [BM25](https://docs.vespa.ai/en/ranking/bm25.html) and [nativeRank](https://docs.vespa.ai/en/reference/nativerank.html).
   
   1. In `app/schemas/product.sd`, ensure `ProductName` is indexed text:  
      ```vespa
@@ -645,16 +639,16 @@ Try implementing these in:
 - **Schema vs data mismatch**
   - Error: unknown field → Add the field to `product.sd` or remove it from feed
   - Error: wrong type → Make sure CSV/JSONL values convert cleanly to the field type
-  - See [`docs/API_GUIDE.md`](docs/API_GUIDE.md#error-handling) for common Document API errors
+  - See [API_GUIDE](https://docs.vespa.ai/en/writing/document-v1-api-guide.html) for common Document API errors
 
 - **No results in queries**
   - Run: `vespa query 'yql=select * from product where true'`
   - If empty: feeding failed or schema didn't match
-  - See [`docs/YQL.md`](docs/YQL.md#troubleshooting) for query troubleshooting tips
+  - See [YQL](https://docs.vespa.ai/en/query-language.html) for query troubleshooting tips
 
 - **Ranking issues**
   - Results not relevant → Check rank profile configuration
-  - See [`docs/RANK.md`](docs/RANK.md#troubleshooting) for ranking troubleshooting
+  - See [Rank](https://docs.vespa.ai/en/ranking.html) for ranking troubleshooting
 
 For generic Vespa deployment / CLI issues, reuse the troubleshooting section from Chapter 1.
 
@@ -667,6 +661,7 @@ By completing this app, you have:
 - Taken the **basic concepts from Chapter 1** and applied them to a **real product catalog**
 - Learned how to **align a Vespa schema with an external CSV source**
 - Practiced **deploying** and **feeding** a larger dataset via JSONL to **Vespa Cloud**
+- Different ways of query your data
 
 From here, you are ready for more advanced topics:
 - Adding **faceted navigation** (brands, categories)
@@ -684,8 +679,5 @@ From here, you are ready for more advanced topics:
 
 **Key takeaway**: This chapter builds on the basics from Chapter 1 and shows how to work with a richer, real-world product catalog, aligning a Vespa schema with CSV data, deploying to Vespa Cloud, and feeding a larger dataset.
 
-For more detailed explanations and reference material for this chapter, see:
-- `docs/API_GUIDE.md` – HTTP APIs, CLI usage, and example requests
-- `docs/YQL.md` – YQL patterns and query examples for the e-commerce data
-- `docs/RANK.md` – ranking profiles, BM25, and relevance tuning for this catalog
+Proceed to [`Chapter 3'](https://github.com/weaviateguru/vespaworkshop101/tree/main/semantic_ecommerce_app)
 
