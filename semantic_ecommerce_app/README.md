@@ -1,15 +1,8 @@
 # Semantic E-commerce App – Vespa 101 Chapter 3
 
 This project is **Chapter 3** in the Vespa 101 series.  
-Chapter 2 (`ecommerce_app`) introduced a full product catalog with text search.  
+Chapter 2 ([`ecommerce_app`](https://github.com/vespauniversity/vespaworkshop101/tree/main/ecommerce_app)) introduced a full product catalog with text search.  
 This chapter adds **semantic search** using vector embeddings and **Approximate Nearest Neighbor (ANN)** search with HNSW indexing.
-
-The goal here is to learn how to:
-- Add **embedding fields** to your Vespa schema
-- Configure **HNSW indexing** for fast ANN search
-- Feed documents with **pre-computed embeddings**
-- Query using **nearest neighbor search** for semantic similarity
-- Use **ranking profiles** that leverage vector similarity
 
 ---
 
