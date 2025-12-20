@@ -1,13 +1,12 @@
 # E-commerce App – Vespa 101 Chapter 2
 
 This project is **Chapter 2** in the Vespa 101 series.  
-Chapter 1 (`simple_ecommerce_app`) introduced a tiny schema and very small dataset.  
+Chapter 1 ([`simple_ecommerce_app`](https://github.com/vespauniversity/vespaworkshop101/tree/main/simple_ecommerce_app)) introduced a tiny schema and very small dataset.  
 This chapter upgrades to a **more realistic e-commerce catalog**, larger data, and runs everything on **Vespa Cloud**.
 
 The goal here is **not** to re-teach the basics from Chapter 1, but to show how to:
-- Map a **real CSV product catalog** to a Vespa schema
-- Deploy a slightly richer **product schema** to Vespa Cloud
-- Feed data from **JSONL** into Vespa Cloud
+- Create a Vespa schma by mapping a **real CSV product catalog** to a schema
+- Create ranking profiles
 - Run queries from a Rest client
 
 ---
@@ -19,7 +18,7 @@ After completing this chapter you should be able to:
 - **Understand a richer product schema** with multiple fields (name, brand, price, etc.)
 - **Deploy** a Vespa app that looks more like a real catalog **on Vespa Cloud**
 
-If any of these feel unfamiliar, quickly skim `simple_ecommerce_app/README.md` first.
+If any of these feel unfamiliar, quickly skim [`simple_ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/simple_ecommerce_app) first.
 
 ---
 
@@ -38,10 +37,6 @@ ecommerce_app/
 │   ├── myntra_products_catalog.csv # Original CSV catalog
 │   ├── products.jsonl              # Converted JSONL, ready to feed
 │   └── generate_jsonl.py           # Script to convert CSV → JSONL
-├── docs/                           # Additional documentation
-│   ├── API_GUIDE.md                # HTTP APIs, CLI usage, and example requests
-│   ├── RANK.md                     # Ranking profiles, BM25, and nativeRank
-│   └── YQL.md                      # YQL query language reference
 ├── img/                            # Screenshots and diagrams (optional)
 ├── put-get-remove.sh               # Example CRUD operations script
 ├── example.http                    # Example HTTP queries
@@ -50,9 +45,6 @@ ecommerce_app/
 └── README.md                       # This file
 ```
 
-You will mainly touch:
-- `app/schemas/product.sd`
-- `dataset/products.jsonl` (or the script that creates it)
 
 ---
 
@@ -78,7 +70,7 @@ This chapter introduces **real-world schema design** with multiple field types a
 
 ### Fieldsets
 
-**Fieldsets** group multiple fields together for efficient multi-field search. Instead of searching each field separately, `userQuery()` searches across all fields in a fieldset simultaneously.
+**Fieldsets** group multiple fields together for efficient multi-field search. Instead of searching each field separately, `userQuery()` searches across all fields in a fieldset simultaneously. By default, userQuery() targets the default fieldset, which includes all fields in the schema marked with index. 
 
 ### Rank Profiles
 
@@ -87,7 +79,7 @@ This chapter introduces **real-world schema design** with multiple field types a
 - **`nativeRank`**: Vespa's default ranking algorithm, optimized for general text search
 - **`BM25`**: Industry-standard ranking algorithm (Best Matching 25), widely used in search systems
 
-**For detailed documentation**, see: [`docs/RANK.md`](docs/RANK.md)
+**For detailed documentation**, see: [`RANKING`](https://docs.vespa.ai/en/basics/ranking.html)
 
 ### Data Conversion and Feeding
 
@@ -97,21 +89,21 @@ This chapter introduces **real-world schema design** with multiple field types a
 
 **YQL (Vespa Query Language)** is a SQL-like language for querying Vespa. This chapter introduces basic queries, boolean logic (`and`, `or`), filtering (`Price < 5000`), and field selection.
 
-**For detailed documentation**, see: [`docs/YQL.md`](docs/YQL.md)
+**For detailed documentation**, see: [`YQL`](https://docs.vespa.ai/en/querying/query-language.html)
 
 ### Multiple Indexing Modes
 
 **Indexing modes** control how fields are stored and accessed:
 
 - **`index`**: Full-text indexed for search (enables `userQuery()` and BM25)
-- **`attribute`**: In-memory storage for fast filtering, sorting, and grouping
-- **`summary`**: Stored and returned in query results (for display)
+- **`attribute`**: In-memory data structures for fast filtering, sorting, and grouping
+- **`summary`**: Returned in query results (for display)
 
 ---
 
 ## Overview
 
-This section introduces the fundamental concepts of ranking and summaries in Vespa. If you're new to Vespa ranking, we recommend reading the detailed explanations in [`docs/RANK.md`](docs/RANK.md) for a deeper understanding.
+This section introduces the fundamental concepts of ranking and summaries in Vespa. If you're new to Vespa ranking, we recommend reading the detailed explanations in [`RANKING`](https://docs.vespa.ai/en/basics/ranking.html) for a deeper understanding.
 
 ### Rank Profile Overview
 
@@ -121,7 +113,7 @@ This section introduces the fundamental concepts of ranking and summaries in Ves
 
 **Key Concepts:**
 - **Rank Profile**: A named configuration that defines how to calculate relevance scores for documents
-- **First-Phase Ranking**: Fast, efficient ranking that runs on all matching documents
+- **First-Phase Ranking**: Fast, efficient ranking that runs on all matching documents retrieved during the initial query phase
 - **Ranking Expression**: The formula used to calculate relevance (e.g., `nativeRank`, `bm25`)
 - **Multiple Profiles**: You can define multiple rank profiles in one schema for different use cases or A/B testing
 
