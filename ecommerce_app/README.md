@@ -676,5 +676,5 @@ From here, you are ready for more advanced topics:
 
 **Key takeaway**: This chapter builds on the basics from Chapter 1 and shows how to work with a richer, real-world product catalog, aligning a Vespa schema with CSV data, deploying to Vespa Cloud, and feeding a larger dataset.
 
-Proceed to [Chapter 3](https://github.com/weaviateguru/vespaworkshop101/tree/main/semantic_ecommerce_app)
+Proceed to [Chapter 3](https://github.com/vespauniversity/vespaworkshop101/tree/main/semantic_ecommerce_app)
 
