@@ -379,7 +379,7 @@ cd app
 vespa config set target cloud
 
 # set the application name something like:
-vespa config set application mytenant.ecommerce-app
+vespa config set application my-tenant.ecommerce-app
 
 # verify
 vespa config get target        # Should show: cloud
@@ -522,8 +522,8 @@ In `example.http`:
 {
     "rest-client.certificates": {
          "e96ac6f2.c66b5c39.z.vespa-app.cloud": { // <--- 1. Match this HOSTNAME to your request URL
-            "cert": "/home/user/.vespa/mytenant.ecommerce-app.default/data-plane-public-cert.pem", // <--- 2. Path to your client certificate
-            "key":  "/home/user/.vespa/mytenant.ecommerce-app.default/data-plane-private-key.pem", // <--- 3. Path to your private key
+            "cert": "/home/user/.vespa/my-tenant.ecommerce-app.default/data-plane-public-cert.pem", // <--- 2. Path to your client certificate
+            "key":  "/home/user/.vespa/my-tenant.ecommerce-app.default/data-plane-private-key.pem", // <--- 3. Path to your private key
             "passphrase": "your_key_passphrase" // <--- 4. (Optional) If your key is encrypted
         }
     }
@@ -679,5 +679,5 @@ From here, you are ready for more advanced topics:
 
 **Key takeaway**: This chapter builds on the basics from Chapter 1 and shows how to work with a richer, real-world product catalog, aligning a Vespa schema with CSV data, deploying to Vespa Cloud, and feeding a larger dataset.
 
-Proceed to [`Chapter 3'](https://github.com/weaviateguru/vespaworkshop101/tree/main/semantic_ecommerce_app)
+Proceed to [Chapter 3](https://github.com/weaviateguru/vespaworkshop101/tree/main/semantic_ecommerce_app)
 
