@@ -3,7 +3,7 @@
 # Simple example of calling Vespa Cloud /search with curl and mTLS.
 # Adjust VESPA_URL, CERT, and KEY to match your environment.
 
-VESPA_URL="https://e96a0df2.c66e5c39.z.vespa-app.cloud"
+VESPA_URL="https://e96adef2.c6re5c39.z.vespa-app.cloud"
 CERT="/home/user/.vespa/my-tenant.ecommerce-app.default/data-plane-public-cert.pem"
 KEY="/home/user/.vespa/my-tenant.ecommerce-app.default/data-plane-private-key.pem"
 
