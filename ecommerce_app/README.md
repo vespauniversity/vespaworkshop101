@@ -4,11 +4,6 @@ This project is **Chapter 2** in the Vespa 101 series.
 Chapter 1 ([`simple_ecommerce_app`](https://github.com/vespauniversity/vespaworkshop101/tree/main/simple_ecommerce_app)) introduced a tiny schema and very small dataset.  
 This chapter upgrades to a **more realistic e-commerce catalog**, larger data, and runs everything on **Vespa Cloud**.
 
-The goal here is **not** to re-teach the basics from Chapter 1, but to show how to:
-- Create a Vespa schma by mapping a **real CSV product catalog** to a schema
-- Create ranking profiles
-- Run queries from a Rest client
-
 ---
 
 ## Learning Objectives (Chapter 2)
@@ -16,7 +11,8 @@ The goal here is **not** to re-teach the basics from Chapter 1, but to show how 
 After completing this chapter you should be able to:
 
 - **Understand a richer product schema** with multiple fields (name, brand, price, etc.)
-- **Deploy** a Vespa app that looks more like a real catalog **on Vespa Cloud**
+- **Understand rank profiles**
+- **Learn multiple ways** to query Vespa
 
 If any of these feel unfamiliar, quickly skim [`simple_ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/simple_ecommerce_app) first.
 
@@ -660,8 +656,9 @@ By completing this app, you have:
 
 - Taken the **basic concepts from Chapter 1** and applied them to a **real product catalog**
 - Learned how to **align a Vespa schema with an external CSV source**
-- Practiced **deploying** and **feeding** a larger dataset via JSONL to **Vespa Cloud**
-- Different ways of query your data
+- Learned basic ranking profiles
+- Practiced **converting** csv to JSONL and **feeding** a larger dataset via JSONL to **Vespa Cloud**
+- Learned different ways of query your data
 
 From here, you are ready for more advanced topics:
 - Adding **faceted navigation** (brands, categories)
