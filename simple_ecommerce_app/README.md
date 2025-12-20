@@ -734,3 +734,5 @@ After completing this tutorial, proceed to:
 
 **Key takeaway**: This chapter gives you the basic building blocks of a Vespa application – simple schema design, indexing modes, feeding, and querying.
 
+Proceed to [Chapter 2](https://github.com/vespauniversity/vespaworkshop101/tree/main/ecommerce_app).
+
