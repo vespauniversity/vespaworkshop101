@@ -719,10 +719,10 @@ Observe the difference between `index` and `attribute`:
 
 After completing this tutorial, proceed to:
 
-- **Chapter 2**: Full E-commerce Application - Learn about complex schemas, CRUD operations, and data ingestion
-- **Chapter 3**: Semantic Search - Add vector embeddings for semantic similarity search
-- **Chapter 4**: Hybrid Search - Combine text and semantic search
-- **Chapter 5**: Sales Data Analytics - Work with time-series data and aggregations
+- [**Chapter 2**](https://github.com/vespauniversity/vespaworkshop101/tree/main/ecommerce_app): Full E-commerce Application - Learn about complex schemas, CRUD operations, and data ingestion
+- [**Chapter 3**](https://github.com/weaviateguru/vespaworkshop101/tree/main/semantic_ecommerce_app): Semantic Search - Add vector embeddings for semantic similarity search
+- [**Chapter 4**](https://github.com/weaviateguru/vespaworkshop101/tree/main/hybrid_ecommerce_app): Hybrid Search - Combine text and semantic search
+- [**Chapter 5**](https://github.com/weaviateguru/vespaworkshop101/tree/main/sales_data_app): Sales Data Analytics - Work with time-series data and aggregations
 
 ## Additional Resources
 
@@ -734,5 +734,5 @@ After completing this tutorial, proceed to:
 
 **Key takeaway**: This chapter gives you the basic building blocks of a Vespa application – simple schema design, indexing modes, feeding, and querying.
 
-Proceed to [Chapter 2](https://github.com/vespauniversity/vespaworkshop101/tree/main/ecommerce_app).
+Proceed to [Chapter 2](https://github.com/vespauniversity/vespaworkshop101/tree/main/ecommerce_app)
 
