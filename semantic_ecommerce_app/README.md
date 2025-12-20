@@ -18,8 +18,8 @@ After completing this chapter you should be able to:
 - **Combine text and semantic search** for hybrid retrieval
 
 **Prerequisites**: Complete Chapter 2 (`ecommerce_app`) first. If you haven't, review:
-- `ecommerce_app/README.md` for schema basics and deployment
-- `simple_ecommerce_app/README.md` for fundamental concepts
+- [`ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/ecommerce_app) for schema and ranking basics and queries
+- [`simple_ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/simple_ecommerce_app) for fundamental concepts
 
 ---
 
@@ -36,8 +36,6 @@ semantic_ecommerce_app/
 │   └── validation-overrides.xml    # Validation overrides (used sparingly)
 ├── dataset/
 │   └── products.jsonl              # Products with pre-computed embeddings
-├── docs/
-│   └── ANN_SEARCH.md               # Comprehensive ANN/HNSW reference guide
 ├── queries.http                    # Example ANN queries
 ├── query-template.http             # Template for building ANN queries
 └── README.md                       # This file
@@ -70,7 +68,7 @@ You will mainly work with:
 
 - **Graph-based index** for fast approximate nearest neighbor search
 - Balances **speed**, **accuracy**, and **memory**
-- Configurable via `max-links-per-node` and `neighbors-to-explore-at-insert`
+- Configurable via `max-links-per-node` (`M` in other systems) and `neighbors-to-explore-at-insert` (`efconstruction` in other systems)
 
 ### ANN Search
 
