@@ -148,55 +148,48 @@ This computes a personalized relevance score using a dot product between user an
 
 ![tensor_semantic_search](img/tensor_semantic_search.png)
 
-**What you're seeing:** This diagram illustrates how tensors enable **semantic search** in Vespa. Semantic search uses vector embeddings to find documents based on meaning rather than exact keyword matches. The query and documents are converted to embeddings, and similarity is computed using distance metrics.
+**What you're seeing:** This diagram illustrates how tensors enable **semantic search** in Vespa. Semantic search uses embedding tensors to find documents based on meaning rather than exact keyword matches. The query and documents are converted to embeddings, and similarity is computed using distance metrics.
 
 **Key Concepts:**
-- **Query Embedding**: Vector representation of the search query
-- **Document Embedding**: Vector representation of document content (stored in schema)
-- **Distance Metric**: How to measure similarity (angular/cosine, euclidean, hamming)
-- **Nearest Neighbor Search**: Finding documents with embeddings closest to the query embedding
-
-**Notes:** Think of it like this:
-- **Query** → "blue jeans" → **Embedding Vector** `[0.1, -0.3, 0.5, ...]`
-- **Document** → "denim pants" → **Embedding Vector** `[0.12, -0.28, 0.48, ...]`
-- **Similarity** = These vectors are close in vector space (high cosine similarity)
-- **Result** = Document matches even though keywords don't match exactly
+- **Query Embedding**: 1-D dense tensor, passed as a query input, e.g. "blue jeans" → **Embedding** `[0.1, -0.3, 0.5, ...]`
+- **Document Embedding**: 1-D dense tensor representation of document content (stored in schema), e.g. "denim pants" → **Embedding** `[0.12, -0.28, 0.48, ...]`
+- **Distance Metric**: How to measure distance (angular/cosine, euclidean, hamming)
+- **Nearest Neighbor Search**: Computes similarity by evaluating distance metrics over these tensors
 
 **Example Query:**
 ```yql
 select * from product where ({targetHits:100}nearestNeighbor(embedding, q_embedding))
 ```
 
-This finds the 100 nearest documents to the query embedding using the `nearestNeighbor()` operator.
+This retrieves 100 documents whose embedding tensors are closest to the query embedding tensor.
 
 **Learn More:**
 - Official Docs: [Nearest Neighbor Search](https://docs.vespa.ai/en/querying/nearest-neighbor-search.html)
-- See [`docs/ANN_SEARCH.md`](docs/ANN_SEARCH.md) for detailed explanation of semantic search
 
 ### Approximate Nearest Neighbors (ANN) Overview
 
 ![tensor_approximate_nearest_neighbors](img/tensor_ann.png)
 
-**What you're seeing:** This diagram explains **Approximate Nearest Neighbor (ANN)** search and the **HNSW (Hierarchical Navigable Small World)** indexing algorithm. ANN search provides fast similarity search on large vector datasets by using approximate algorithms instead of exact (brute-force) search.
+**What you're seeing:** This diagram explains **Approximate Nearest Neighbor (ANN)** search and the **HNSW (Hierarchical Navigable Small World)** indexing algorithm. ANN search provides fast similarity search over tensor fields by using approximate algorithms instead of exact (brute-force) search.
 
 **Key Concepts:**
-- **ANN Search**: Fast approximate algorithm to find similar vectors (trades some accuracy for speed)
-- **HNSW Index**: Graph-based data structure that organizes vectors for efficient traversal
+- **ANN Search**: Fast approximate algorithm to find tensor embeddings (trades some accuracy for speed)
+- **HNSW Index**: Graph-based index organizing tensor embeddings for efficient nearest-neighbor traversal 
 - **Exact vs Approximate**: Exact search is slow but 100% accurate; ANN is fast but may miss some results
 - **Recall vs Speed Trade-off**: Higher recall = slower search, lower recall = faster search
 
 **Notes:** Think of it like this:
 - **Exact Search** = Check every document (slow, but perfect accuracy)
-- **ANN Search** = Use a smart graph structure to jump to likely matches (fast, ~95-99% accuracy)
+- **ANN Search** = Use a smart graph structure to jump to likely matches (fast, ~90% accuracy yet not guranteed)
 - **HNSW Graph** = Like a highway system: you can quickly navigate to nearby neighborhoods
-- **targetHits** = How many candidates to explore (more = better recall, slower)
+- **targetHits** = How many nearest-neighbor candidates ANN should aim to retrieve (more = better recall, slower)
 
 **HNSW Configuration:**
 ```vespa
 index {
   hnsw {
-    max-links-per-node: 16        # Connections per node (more = better recall, more memory)
-    neighbors-to-explore-at-insert: 200  # Candidates to check when inserting
+    max-links-per-node: 16        # Connections per node. more = better recall, more memory (`M` in other implementations)
+    neighbors-to-explore-at-insert: 200  # Candidates to check when inserting (`efConstruction` in other implementations)
   }
 }
 ```
@@ -204,12 +197,11 @@ index {
 **When to Use ANN:**
 - ✅ Large vector datasets (millions+ documents)
 - ✅ Need fast query response times
-- ✅ Can tolerate ~1-5% recall loss
+- ✅ Can tolerate some recall loss in exchange for lower latency
 - ✅ Real-time search applications
 
 **Learn More:**
 - Official Docs: [Nearest Neighbor Search Guide](https://docs.vespa.ai/en/querying/nearest-neighbor-search-guide.html)
-- See [`docs/ANN_SEARCH.md`](docs/ANN_SEARCH.md) for detailed HNSW configuration and tuning
 
 ### Target Hit and Limit Overview
 
@@ -218,13 +210,13 @@ index {
 **What you're seeing:** This diagram explains the difference between **`targetHits`** and **`limit`** parameters in Vespa queries. These are two different parameters that control different aspects of query execution and result retrieval.
 
 **Key Concepts:**
-- **`targetHits`**: Controls how many candidates the ANN algorithm explores during retrieval (affects recall and speed)
+- **`targetHits`**: Controls how many nearest-neighbor candidates the ANN retrieval phase should attempt to find (affects recall and speed)
 - **`limit`**: Controls how many results are returned to the user (affects output size)
 - **Retrieval Phase**: `targetHits` affects the number of documents retrieved from the index
 - **Ranking Phase**: `limit` affects how many of the retrieved documents are returned
 
 **Notes:** Think of it like this:
-- **`targetHits`** = "Look at 100 candidates" (retrieval phase - how many to consider)
+- **`targetHits`** = "Look at 100 candidates" (retrieval phase - how many to consider. It is approximate and best-effort, not exact)
 - **`limit`** = "Return top 10 results" (output phase - how many to show)
 - **Higher `targetHits`** = Better recall, slower query (more candidates to rank)
 - **Lower `targetHits`** = Faster query, may miss some relevant results
@@ -237,19 +229,17 @@ limit 10
 ```
 
 **What happens:**
-1. ANN algorithm explores ~100 candidate documents (`targetHits:100`)
-2. These 100 candidates are ranked by the ranking profile
+1. ANN algorithm aims to find ~100 nearest-neighbor candidates (`targetHits:100`)
+2. These candidates are ranked using the ranking profile
 3. Top 10 results are returned (`limit 10`)
 
 **Best Practices:**
-- Set `targetHits` to 3-10x your desired `limit` (e.g., `targetHits:100` for `limit:10`)
+- Set `targetHits` to 3-10x your desired `limit` (e.g., `targetHits:100` for `limit:10`. This is a common industry guidance, not a rule)
 - Higher `targetHits` improves recall but increases latency
-- Typical values: `targetHits: 50-200` for most applications
 
 **Learn More:**
 - Official Docs: [targetHits](https://docs.vespa.ai/en/reference/querying/yql.html#targethits)
 - Official Docs: [limit/offset](https://docs.vespa.ai/en/reference/querying/yql.html#limit-offset)
-- See [`docs/ANN_SEARCH.md`](docs/ANN_SEARCH.md) for tuning `targetHits` for optimal performance
 
 ## Lab
 
