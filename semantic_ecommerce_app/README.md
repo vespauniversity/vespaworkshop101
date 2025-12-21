@@ -88,18 +88,13 @@ This section introduces the fundamental concepts of tensors, embeddings, and sem
 
 ![tensor_whatis](img/tensor_whatis.png)
 
-**What you're seeing:** This diagram illustrates what **tensors** are in Vespa. Tensors are multi-dimensional arrays that can represent scalars, vectors, matrices, or higher-dimensional data structures. In semantic search, tensors are used to store **vector embeddings** - numerical representations of text, images, or other data.
+**What you're seeing:** This diagram illustrates what **tensors** are in Vespa. Tensors are multi-dimensional arrays that can represent scalars, vectors, matrices, or higher-dimensional data structures. In semantic search, tensors are used to represent ** embeddings** - numerical representations of text, images, or other data.
 
 **Key Concepts:**
 - **Tensor**: A multi-dimensional array (0D = scalar, 1D = vector, 2D = matrix, etc.)
-- **Tensor Type**: Defines the shape and data type (e.g., `tensor<float>(x[384])` = 384-dimensional float vector)
-- **Embeddings**: Dense vector representations that capture semantic meaning
-- **Vector Space (vectors are first order tensors)**: High-dimensional space where similar meanings are close together
-
-**Notes:** Think of it like this:
-- **Tensor** = A container for multi-dimensional data (like a NumPy array or matrix)
-- **Embedding Vector** = A list of numbers that represents meaning (e.g., `[0.23, -0.45, 0.12, ...]`)
-- **Similar Meanings** = Vectors that are close in the vector space (measured by distance metrics)
+- **Tensor Type**: Defines the shape and data type, e.g. `tensor<float>(x[384])`
+- **Embeddings**: Dense tensor representations that capture semantic meaning
+- **Vector Space (vectors are first order tensors)**: High-dimensional space where semantically similar tensors are close under a distance metric
 
 **Example Tensor Definition:**
 ```vespa
@@ -108,7 +103,7 @@ field embedding type tensor<float>(x[384]) {
 }
 ```
 
-This defines a 384-dimensional float vector, which is a common size for text embeddings (e.g., E5-small-v2 model).
+This defines a 384-dimensional dense tensor suitable for semantic search using ANN.
 
 **Learn More:**
 - Blog: [Computing with Tensors](https://blog.vespa.ai/computing-with-tensors/)
@@ -146,6 +141,9 @@ rank-profile personalized {
 
 This multiplies user preferences with product features to get a personalized relevance score.
 
+
+
+Feel free to look at other examples from the [Tensor Playground](https://docs.vespa.ai/playground/) and play around with them.
 **Learn More:**
 - Official Docs: [Tensor User Guide](https://docs.vespa.ai/en/ranking/tensor-user-guide.html)
 - See [`docs/ANN_SEARCH.md`](docs/ANN_SEARCH.md) for tensor operations in ranking
@@ -257,8 +255,34 @@ limit 10
 - Official Docs: [limit/offset](https://docs.vespa.ai/en/reference/querying/yql.html#limit-offset)
 - See [`docs/ANN_SEARCH.md`](docs/ANN_SEARCH.md) for tuning `targetHits` for optimal performance
 
-##Lab
-## Step 1 – Review the Schema
+## Lab
+
+## Step 1 - Tensor Playground
+
+Visit [example dot product tensor playground](https://docs.vespa.ai/playground/#N4KABGBEBmkFxgNrgmUrWQPYAd5QGNIAaFDSPBdDTAF30gGUcBDAJwGcBTMWrgOw5Y2YACZZaYHGyyiArgVoA6MADEAlp1rEwAdx6iu0dfx61dWMB1aczAoZzAADAIJOwLfqOcAhJyoAdfgA5CXUCMwALHgiAG1iOXkiWSWSANwEAckkAIy4BMSMTLm9xLkT+CTB0nhYwNJZYuS44SDJUAF92jtIManJcBi4SdogKfH6aSH4GFxGaTGGESD5BYQAKAhTgDoBKOGBoLCw4AAYlAA4OtoWujB72ybHB5eHeqco0UcwZ5Z95hZQJZQVYOTbbPYHHLsM5KADsAFZiEcTucAEzXb53TrvCBPKAvQgA8iffFjejLACS-CSPAAtnJYrR1DhYuEUuosPwdFzYgBPWlgOkpAiREwAczAcQSHjYMUaBEZKRKrSx3VxXwW2E+kDe33GVG+Y1+UGJU2BkBcYAAVGB-mr7hr8dqGEQNWNSUaQQwACrRMRVaSyBSSdSJWj+hlMllsrbMrlgI7xLD6bw5AV1DhyOlgLAZEQRmJYOl0hOidR0+yc-iq27qx76wm6s0eiZe6YMFuLBhZunrFzWnw6OO7G40bEQB59Rs6t36z2A73LP1hsCrrgARzk6gasQEkloJzH93r061Tb1WoXgI7yy7YwtcvkEXWACssCZ+zoh4n1gAPYg+V2f9rSA3YdF7YcUlHB1OhQABdEAOiAA)  
+
+Input tensors that look like this:
+
+```
+{
+    "pop": 1,
+    "rock": 0.2,
+    "jazz": 0
+}
+```
+
+To represent musical genres of different bands. Then you'll express your taste using a similar tensor:
+```
+{
+    "pop": 0.5,
+    "rock": 0.7,
+    "jazz": 0.3
+}
+```
+
+Finally, you'll compute the dot product between the taste tensor and the band tensors. The highest dot products would be the bands to recommend.
+
+## Step 2 – Review the Schema
 
 Open:
 - `app/schemas/product.sd`
@@ -312,7 +336,7 @@ The schema includes three ranking profiles:
 
 ---
 
-## Step 2 – Deploy the Application
+## Step 3 – Deploy the Application
 
 From the `semantic_ecommerce_app` root:
 
@@ -360,7 +384,7 @@ You should see output indicating the application is **ready**.
 
 ---
 
-## Step 3 – Delete Existing Documents (If Any)
+## Step 4 – Delete Existing Documents (If Any)
 
 > **Important**: If you have existing documents from Chapter 2, delete them first to avoid conflicts or setup the new application.
 
@@ -415,7 +439,7 @@ vespa query 'yql=select * from product where true' 'hits=1000' | \
 - For very large datasets, consider using the Vespa Cloud Console delete option instead
 ---
 
-## Step 4 – Feed the Sample Data
+## Step 5 – Feed the Sample Data
 
 The dataset contains products with **pre-computed embeddings** (384-dimensional vectors).
 
@@ -456,7 +480,7 @@ You should see products with their embeddings indexed.
 
 ---
 
-## Step 5 – Run an ANN Query
+## Step 6 – Run an ANN Query
 
 Now that data is fed, you can perform **Approximate Nearest Neighbor (ANN)** searches.
 
@@ -537,7 +561,7 @@ Fill in the template in the file `query-template.http` using a code editor (e.g.
 
 ---
 
-## Step 6 – Experiment with Different Queries
+## Step 7 – Experiment with Different Queries
 
 ### 6.1 Basic ANN Search
 
