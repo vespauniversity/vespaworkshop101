@@ -116,14 +116,14 @@ This defines a 384-dimensional dense tensor suitable for semantic search using A
 **What you're seeing:** This diagram illustrates how tensors are used for **recommendation systems** in Vespa. Recommendation systems use tensor operations to compute similarity between users and items, or to combine multiple features for personalized ranking.
 
 **Key Concepts:**
-- **User Preferences Tensor**: Vector representing user interests or preferences
-- **Item Features Tensor**: Vector representing item characteristics
+- **User Preferences Tensor**: Vector (first order tensor) representing user interests or preferences
+- **Item Features Tensor**: Vector (first order tensor) representing item characteristics
 - **Tensor Operations**: Dot product, element-wise operations, aggregation functions
 - **Personalized Ranking**: Using tensor computations to score items for specific users
 
 **Notes:** Think of it like this:
-- **User Tensor** = A profile of what the user likes (e.g., `[0.8, 0.2, 0.9, ...]` for categories)
-- **Item Tensor** = Features of the product (e.g., `[0.7, 0.3, 0.6, ...]` for same categories)
+- **User Tensor (query tensor)** = A profile of what the user likes (e.g., `[0.8, 0.2, 0.9, ...]` for categories)
+- **Item Tensors (document attribute tensors)** = Features of the product (e.g., `[0.7, 0.3, 0.6, ...]` for same categories)
 - **Similarity Score** = Dot product or cosine similarity between user and item tensors
 - **Higher Score** = Better match for the user
 
@@ -139,14 +139,10 @@ rank-profile personalized {
 }
 ```
 
-This multiplies user preferences with product features to get a personalized relevance score.
+This computes a personalized relevance score using a dot product between user and item feature tensors.
 
-
-
-Feel free to look at other examples from the [Tensor Playground](https://docs.vespa.ai/playground/) and play around with them.
 **Learn More:**
 - Official Docs: [Tensor User Guide](https://docs.vespa.ai/en/ranking/tensor-user-guide.html)
-- See [`docs/ANN_SEARCH.md`](docs/ANN_SEARCH.md) for tensor operations in ranking
 
 ### Tensor Semantic Search Overview
 
@@ -281,6 +277,8 @@ To represent musical genres of different bands. Then you'll express your taste u
 ```
 
 Finally, you'll compute the dot product between the taste tensor and the band tensors. The highest dot products would be the bands to recommend.
+
+Feel free to look at other examples from the [Tensor Playground](https://docs.vespa.ai/playground/) and play around with them.
 
 ## Step 2 – Review the Schema
 
