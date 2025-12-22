@@ -700,25 +700,6 @@ index {
   - Default: 200 (good balance)
   - Range: 50-1000+ typically
 
-### Tuning Guidelines
-
-**For Production** (high accuracy):
-```javascript
-hnsw {
-  max-links-per-node: 32
-  neighbors-to-explore-at-insert: 400
-}
-```
-
-**For Development** (fast indexing):
-```javascript
-hnsw {
-  max-links-per-node: 16
-  neighbors-to-explore-at-insert: 100
-}
-```
-
-
 ---
 
 ## Destroy The Deployment
