@@ -320,7 +320,6 @@ The schema includes three ranking profiles:
    ```
 3. **`hybrid`**: Combines text (BM25) + semantic (closeness)
 
-**For detailed schema configuration**, see: [`docs/ANN_SEARCH.md#schema-configuration`](docs/ANN_SEARCH.md#schema-configuration)
 
 ---
 
@@ -545,13 +544,12 @@ Fill in the template in the file `query-template.http` using a code editor (e.g.
 - `ranking.profile=use_closeness` - Uses `closeness()` function for similarity scoring
 - `input.query(q_embedding)` - The query embedding vector (384 dimensions)
 
-**For detailed query syntax**, see: [`docs/ANN_SEARCH.md#query-syntax`](docs/ANN_SEARCH.md#query-syntax)
 
 ---
 
 ## Step 7 – Experiment with Different Queries
 
-### 6.1 Basic ANN Search
+### 7.1 Basic ANN Search
 
 Find products similar to a query embedding:
 
@@ -563,7 +561,7 @@ vespa query \
   'hits=10'
 ```
 
-### 6.2 ANN with Filters
+### 7.2 ANN with Filters
 
 Combine semantic search with attribute filters:
 
@@ -575,7 +573,7 @@ vespa query \
   'hits=10'
 ```
 
-### 6.3 Hybrid Search (Text + Semantic)
+### 7.3 Hybrid Search (Text + Semantic)
 
 Combine BM25 text search with semantic search:
 
@@ -588,7 +586,7 @@ vespa query \
   'hits=10'
 ```
 
-### 6.4 Adjust targetHits
+### 7.4 Adjust targetHits
 
 Experiment with different `targetHits` values:
 
@@ -610,7 +608,6 @@ vespa query \
   'input.query(q_embedding)=[0.1, 0.2, ...]'
 ```
 
-**For more examples**, see: [`docs/ANN_SEARCH.md#complete-examples`](docs/ANN_SEARCH.md#complete-examples)
 
 ---
 
@@ -721,7 +718,6 @@ hnsw {
 }
 ```
 
-**For detailed HNSW tuning**, see: [`docs/ANN_SEARCH.md#hnsw-index-parameters`](docs/ANN_SEARCH.md#hnsw-index-parameters)
 
 ---
 
@@ -771,7 +767,6 @@ hnsw {
 3. **Verify embedding field name**: Must match schema field name
 4. **Enable tracing**: `vespa query 'yql=...' 'traceLevel=5'`
 
-**For comprehensive troubleshooting**, see: [`docs/ANN_SEARCH.md#troubleshooting`](docs/ANN_SEARCH.md#troubleshooting)
 
 ---
 
@@ -798,16 +793,15 @@ From here, you are ready for more advanced topics:
 
 ### Documentation
 
-- **Comprehensive ANN Reference**: [`docs/ANN_SEARCH.md`](docs/ANN_SEARCH.md) - Complete guide to HNSW, ANN queries, ranking, and best practices
 - **Vespa HNSW Docs**: https://docs.vespa.ai/en/querying/approximate-nn-hnsw.html
 - **Nearest Neighbor Guide**: https://docs.vespa.ai/en/querying/nearest-neighbor-search-guide.html
 - **Embedding Management**: https://docs.vespa.ai/en/rag/embedding.html
 
 ### Related Tutorials
 
-- **Chapter 1**: `simple_ecommerce_app/README.md` - Basic schema and queries
-- **Chapter 2**: `ecommerce_app/README.md` - Full catalog with text search
-- **Chapter 4**: Hybrid search with RRF
+- **Chapter 1**: [`simple_ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/simple_ecommerce_app) - Basic schema and queries
+- **Chapter 2**: [`ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/ecommerce_app) - Full catalog with text search
+- **Chapter 4**: [Hybrid search with RRF](https://github.com/vespauniversity/vespaworkshop101/tree/main/hybrid_ecommerce_app)
 
 ### Query Examples
 
@@ -820,7 +814,7 @@ From here, you are ready for more advanced topics:
 
 After mastering semantic search, proceed to:
 
-- **Chapter 4**: Hybrid Search - Combine text (BM25) and semantic (ANN) with RRF ranking
+- **[Chapter 4](https://github.com/vespauniversity/vespaworkshop101/tree/main/hybrid_ecommerce_app)**: Hybrid Search - Combine text (BM25) and semantic (ANN) with RRF ranking
 - **Advanced Ranking**: Multi-phase ranking, custom rerankers
 - **RAG Applications**: Build Retrieval-Augmented Generation systems with Vespa
 
@@ -830,12 +824,14 @@ After mastering semantic search, proceed to:
 
 This chapter introduced:
 
-1. **Embedding fields** - Tensor fields for vector representations
+1. **Embedding fields** - Tensor fields for dense numerical representations
 2. **HNSW indexing** - Fast approximate nearest neighbor search
 3. **ANN queries** - `nearestNeighbor()` operator with `targetHits`
 4. **Semantic ranking** - `closeness()` function for similarity scoring
 5. **Hybrid search** - Combining text and semantic search
 
 **Key takeaway**: Semantic search enables finding documents by **meaning**, not just keywords, making search more intuitive and powerful.
+
+Proceed to [Chapter 4](https://github.com/vespauniversity/vespaworkshop101/tree/main/hybrid_ecommerce_app)
 
 
