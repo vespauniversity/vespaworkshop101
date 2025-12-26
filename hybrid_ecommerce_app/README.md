@@ -1,7 +1,7 @@
 # Hybrid E-commerce App – Vespa 101 Chapter 4
 
 This project is **Chapter 4** in the Vespa 101 series.  
-Chapter 3 (`semantic_ecommerce_app`) introduced semantic search with pre-computed embeddings.  
+Chapter 3 ([`semantic_ecommerce_app`](https://github.com/vespauniversity/vespaworkshop101/tree/main/semantic_ecommerce_app)) introduced semantic search with pre-computed embeddings.  
 This chapter adds **hybrid search** combining text (BM25) and semantic (ANN) search using **Reciprocal Rank Fusion (RRF)** ranking, and introduces **query-time embedding generation** using embedder components.
 
 The goal here is to learn how to:
@@ -23,10 +23,10 @@ After completing this chapter you should be able to:
 - **Understand the trade-offs** between query-time and pre-computed embeddings
 - **Optimize hybrid search** for better relevance and performance
 
-**Prerequisites**: Complete Chapter 3 (`semantic_ecommerce_app`) first. If you haven't, review:
-- `semantic_ecommerce_app/README.md` for semantic search and ANN basics
-- `ecommerce_app/README.md` for text search and schema fundamentals
-- `simple_ecommerce_app/README.md` for fundamental concepts
+**Prerequisites**: Complete Chapter 3 ([`semantic_ecommerce_app`](https://github.com/vespauniversity/vespaworkshop101/tree/main/semantic_ecommerce_app)) first. If you haven't, review:
+- [`semantic_ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/semantic_ecommerce_app) for semantic search and ANN basics
+- [`ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/ecommerce_app) for text search and schema fundamentals
+- [`simple_ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/simple_ecommerce_app) for fundamental concepts
 
 ---
 
@@ -73,7 +73,7 @@ You will mainly work with:
 
 ### Query-Time Embedding Generation
 
-Unlike Chapter 3 (pre-computed embeddings), this chapter uses **embedder components** to generate embeddings **on-the-fly** from query text:
+Unlike [Chapter 3]( (pre-computed embeddings), this chapter uses **embedder components** to generate embeddings **on-the-fly** from query text:
 
 - **Pre-computed** (Chapter 3): Embeddings stored in documents, faster queries
 - **Query-time** (Chapter 4): Embeddings generated from query text, more flexible
