@@ -1000,24 +1000,6 @@ From here, you are ready for more advanced topics:
 
 ## Additional Resources
 
-### Reference Documentation
-
-This project includes detailed reference documentation:
-
-- **`docs/EMBEDDING.md`** - Comprehensive guide to embedding in Vespa
-  - Embedder configuration (HuggingFace, BERT, ColBERT, SPLADE)
-  - Index-time and query-time embedding
-  - Field concatenation and advanced patterns
-  - Troubleshooting and best practices
-  - Based on: https://docs.vespa.ai/en/rag/embedding.html
-
-- **`docs/PHASED_RANKING.md`** - Complete guide to phased ranking and RRF
-  - First-phase, second-phase, and global-phase ranking
-  - Reciprocal Rank Fusion (RRF) implementation
-  - Cross-hit normalization (`normalize_linear`, `reciprocal_rank`)
-  - Performance tuning and troubleshooting
-  - Based on: https://docs.vespa.ai/en/ranking/phased-ranking.html
-
 ### Documentation
 
 - **Embedding Guide**: https://docs.vespa.ai/en/embedding.html
