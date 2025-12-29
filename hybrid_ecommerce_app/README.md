@@ -62,7 +62,7 @@ You will mainly work with:
 
 **Hybrid search** combines multiple retrieval methods to improve search quality:
 - **Text search (BM25)**: Finds documents matching exact keywords
-- **Semantic search (ANN)**: Finds documents by meaning using vector embeddings
+- **Semantic search (ANN)**: Finds documents by meaning using embeddings
 - **Combined**: Leverages strengths of both approaches
 
 **Example**:
@@ -73,7 +73,7 @@ You will mainly work with:
 
 ### Query-Time Embedding Generation
 
-Unlike [Chapter 3]( (pre-computed embeddings), this chapter uses **embedder components** to generate embeddings **on-the-fly** from query text:
+Unlike [Chapter 3](https://github.com/vespauniversity/vespaworkshop101/tree/main/semantic_ecommerce_app) (pre-computed embeddings), this chapter uses **embedder components** to generate embeddings **on-the-fly** from query text:
 
 - **Pre-computed** (Chapter 3): Embeddings stored in documents, faster queries
 - **Query-time** (Chapter 4): Embeddings generated from query text, more flexible
@@ -93,7 +93,7 @@ RRF Score = Σ (1 / (k + rank_i))
 ```
 
 Where:
-- `k` = constant (typically 60)
+- `k` = a numerical constant (default 60.0)
 - `rank_i` = rank of document in result set `i`
 
 **For detailed information** about RRF, see:
