@@ -140,7 +140,7 @@ field embedding type tensor<float>(x[384]) {
 
 ## Overview
 
-This section introduces the fundamental concepts of embedders, embeddings, hybrid search with Reciprocal Rank Fusion (RRF), and phased ranking in Vespa. If you're new to these concepts, we recommend reading the detailed explanations in [`docs/EMBEDDING.md`](docs/EMBEDDING.md) and [`docs/PHASED_RANKING.md`](docs/PHASED_RANKING.md) for a deeper understanding.
+This section introduces the fundamental concepts of embedders, embeddings, hybrid search with Reciprocal Rank Fusion (RRF), and phased ranking in Vespa. 
 
 ### Embedders Overview
 
@@ -155,12 +155,6 @@ This section introduces the fundamental concepts of embedders, embeddings, hybri
 - **Index-time Embedding**: Embeddings generated during document indexing and stored in the index
 - **Query-time Embedding**: Embeddings generated on-the-fly from query text using the `embed()` function
 
-**Notes:** Think of it like this:
-- **Embedder** = A service that converts text to numbers (embeddings)
-- **Model** = The AI model that does the conversion (e.g., E5-small-v2)
-- **Index-time** = Generate embeddings when documents are indexed (faster queries)
-- **Query-time** = Generate embeddings when queries are made (more flexible)
-
 **Example Embedder Configuration (`services.xml`):**
 ```xml
 <component id="e5" type="hugging-face-embedder">
@@ -171,7 +165,6 @@ This section introduces the fundamental concepts of embedders, embeddings, hybri
 This configures an embedder named `e5` using the E5-small-v2 model from Vespa Model Hub, which generates 384-dimensional embeddings.
 
 **Learn More:**
-- See [`docs/EMBEDDING.md`](docs/EMBEDDING.md) for detailed explanation of embedders and embedding generation
 - Official Docs: [Embedding](https://docs.vespa.ai/en/embedding.html)
 - Model Hub: [Vespa Cloud Model Hub](https://cloud.vespa.ai/en/model-hub)
 
@@ -183,16 +176,10 @@ This configures an embedder named `e5` using the E5-small-v2 model from Vespa Mo
 
 **Key Concepts:**
 - **Embedding Field**: A tensor field that stores vector embeddings (e.g., `tensor<float>(x[384])`)
-- **Indexing Pipeline**: The process of generating embeddings from document fields during indexing
+- **Indexing Pipeline**: An example indexing pipeline may embed text and store embeddings in a tensor field
 - **HNSW Index**: Hierarchical Navigable Small World graph index for efficient ANN search
 - **Distance Metric**: How similarity is measured (e.g., `angular`, `euclidean`, `innerproduct`)
 - **Query-time Embedding**: Using `embed()` function to generate embeddings from query text
-
-**Notes:** Think of it like this:
-- **Embedding** = A list of numbers representing text meaning (e.g., `[0.23, -0.45, 0.12, ...]`)
-- **Indexing Pipeline** = `input title | embed e5 | attribute | index` - converts text to embedding and stores it
-- **ANN Search** = Finding documents with similar embeddings (semantic similarity)
-- **Distance Metric** = How to measure "closeness" between embeddings
 
 **Example Embedding Field Definition:**
 ```vespa
@@ -215,7 +202,6 @@ field embedding type tensor<float>(x[384]) {
 This field generates embeddings by concatenating title and description, then using the `e5` embedder component. The embedding is stored as an attribute with angular distance metric and indexed with HNSW for fast ANN search.
 
 **Learn More:**
-- See [`docs/EMBEDDING.md`](docs/EMBEDDING.md) for detailed explanation of embedding fields and indexing pipelines
 - Official Docs: [Embedding](https://docs.vespa.ai/en/embedding.html)
 - Official Docs: [Nearest Neighbor Search](https://docs.vespa.ai/en/nearest-neighbor-search.html)
 
@@ -304,11 +290,10 @@ This rank profile uses fast BM25 in the first phase to score all matching docume
 - Optimizes for both quality and performance by limiting expensive operations
 
 **Learn More:**
-- See [`docs/PHASED_RANKING.md`](docs/PHASED_RANKING.md) for detailed explanation of phased ranking
 - Official Docs: [Phased Ranking](https://docs.vespa.ai/en/phased-ranking.html)
 - Official Docs: [Ranking Expressions](https://docs.vespa.ai/en/ranking/ranking-expressions.html)
 
-
+## Lab
 ## Step 1 – Review the Schema
 
 Open:
