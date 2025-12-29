@@ -213,16 +213,10 @@ This field generates embeddings by concatenating title and description, then usi
 
 **Key Concepts:**
 - **Hybrid Search**: Combining multiple retrieval methods (text + semantic) in a single query
-- **Reciprocal Rank Fusion (RRF)**: A ranking technique that combines ranked lists by converting ranks to reciprocal ranks
-- **Reciprocal Rank**: `1.0 / (k + rank)` - converts rank position to a score (lower rank = higher score)
-- **Global-Phase Ranking**: Final ranking phase that runs after merging results from all **content nodes**
+- **Reciprocal Rank Fusion (RRF)**: A ranking technique that combines ranked lists by converting ranks to reciprocal ranks. It focuses on rank position rather than absolute scores
+- **Reciprocal Rank**: `1.0 / (k + rank)` - converts rank position to a score (lower rank = higher score). A document at rank 1 gets score 1/(60+1) = 0.0164, rank 2 gets 1/(60+2) = 0.0161
+- **Global-Phase Ranking**: Final reranking step that operates on the merged hits from all **content nodes** and combines signals from multiple methods
 - **Rank Normalization**: RRF automatically handles different score scales from different methods
-
-**Notes:** Think of it like this:
-- **Hybrid Search** = Using both keyword matching (BM25) and semantic understanding (ANN) together
-- **RRF** = A way to combine rankings that focuses on rank position rather than absolute scores
-- **Reciprocal Rank** = A document at rank 1 gets score 1/(60+1) = 0.0164, rank 2 gets 1/(60+2) = 0.0161
-- **Global-Phase** = Final reranking step that combines signals from multiple methods
 
 **Example RRF Rank Profile:**
 ```vespa
@@ -245,7 +239,6 @@ This rank profile combines semantic search (closeness) with text search (BM25) u
 - Focuses on rank position rather than absolute scores, making it robust to score variations
 
 **Learn More:**
-- See [`docs/PHASED_RANKING.md`](docs/PHASED_RANKING.md) for detailed explanation of RRF and global-phase ranking
 - Official Docs: [Phased Ranking](https://docs.vespa.ai/en/phased-ranking.html)
 - Academic Paper: [Reciprocal Rank Fusion](https://plg.uwaterloo.ca/~gvcormac/cormacksigir09-rrf.pdf)
 
