@@ -643,10 +643,6 @@ Fill in the template in the file `queries.http` using a code editor (e.g., VS Co
      "input.query(q_embedding)": "embed(@query_text)"
    }
    ```
-   
-   **⚠️ Important**: The `embed()` function **does not work in REST API JSON queries**. You'll get an error: "Expected tensor but got string". For REST API, you need to:
-   - **Use Vespa CLI** instead (see Option 1 above), or
-   - **Pre-compute the embedding vector** and pass it as an array (see `semantic_ecommerce_app/queries.http` for an example)
 
 3. **Hybrid search with RRF**:
    ```json
@@ -660,10 +656,7 @@ Fill in the template in the file `queries.http` using a code editor (e.g., VS Co
    ```
 
 ![rest_query_hybrid](img/rest_query_hybrid.png)
-   
-   **⚠️ Same limitation**: The `embed()` function doesn't work in REST API JSON. Use Vespa CLI for query-time embedding.
-
-**Note**: Replace `<mTLS_ENDPOINT_DNS_GOES_HERE>` with your Vespa Cloud endpoint (from `vespa status`).
+  
 
 ### Understanding the Queries
 
