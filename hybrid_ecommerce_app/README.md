@@ -438,7 +438,7 @@ From the `hybrid_ecommerce_app` root:
 > **Assumption**: You already configured **target** and **application name** in previous chapters  
 > (for example `vespa config set target cloud`, and `vespa config set application <tenant>.<app>[.<instance>]`).
 
-If you **skipped previous chapters**, do that first using `ecommerce_app/README.md` (Prerequisites + Setup).
+If you **skipped previous chapters**, do that first using [`ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/ecommerce_app) (Prerequisites + Setup).
 
 Then deploy this Chapter 4 app:
 
@@ -517,7 +517,7 @@ vespa document remove <document-id>
 ```bash
 # Using a loop to delete all document IDs
 # This script queries all documents, extracts their IDs, and deletes them using jq
-vespa query 'yql=select * from product where true' 'hits=1000' | \
+vespa query 'yql=select * from product where true' 'hits=400' | \
   jq -r '.root.children[].id' | \
   while read doc_id; do
     echo "Deleting document: $doc_id"
@@ -526,7 +526,7 @@ vespa query 'yql=select * from product where true' 'hits=1000' | \
 ```
 
 **Note**: 
-- Adjust `hits=1000` if you have more documents (or remove limit to get all)
+- Adjust `hits=400` if you have more documents (or remove limit to get all)
 - The script processes documents in batches - if you have many documents, you may need to run it multiple times
 - For very large datasets, consider using the Vespa Cloud Console delete option instead
 
