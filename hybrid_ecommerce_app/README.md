@@ -290,8 +290,6 @@ This rank profile uses fast BM25 in the first phase to score all matching docume
 ## Step 1 – Review the Schema
 
 Open:
-- `docs/product-original.sd`
-- `docs/product-alternative.sd`
 - `app/schemas/product.sd`
 
 These schemas extend Chapter 3's schema but has **TODOs** for you to complete:
@@ -404,8 +402,6 @@ output = 1.0 / (k + rank)
 ## Step 2 – Configure the Embedder Component
 
 Open:
-- `docs/services-original.sd`
-- `docs/services-alternative.sd`
 - `app/services.xml`
 
 You need to add an embedder component configuration.
