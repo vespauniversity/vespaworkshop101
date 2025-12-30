@@ -556,7 +556,7 @@ vespa feed --progress 3 ../dataset/vespa_feed-1K_no_embeddings.jsonl
 **Note**: 
 - Embedding generation happens **during indexing**, not at query time
 - The embedder component processes each document's text fields
-- This is different from Chapter 3 where embeddings were pre-computed
+- This is different from [Chapter 3](https://github.com/vespauniversity/vespaworkshop101/tree/main/semantic_ecommerce_app) where embeddings were pre-computed
 
 ### Verify Data Was Fed
 
