@@ -25,10 +25,10 @@ After completing this chapter you should be able to:
 - **Understand grouping syntax** and available aggregators
 
 **Prerequisites**: Complete previous chapters first. If you haven't, review:
-- `simple_ecommerce_app/README.md` for basic schema and queries
-- `ecommerce_app/README.md` for text search fundamentals
-- `semantic_ecommerce_app/README.md` for semantic search
-- `hybrid_ecommerce_app/README.md` for hybrid search and RRF
+- [`simple_ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/simple_ecommerce_app) for basic schema and queries
+- [`ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/ecommerce_app) for text search fundamentals
+- [`semantic_ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/semantic_ecommerce_app) for semantic search
+- [`hybrid_ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/hybrid_ecommerce_app) for hybrid search and RRF
 
 ---
 
