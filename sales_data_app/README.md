@@ -994,19 +994,6 @@ From here, you are ready for more advanced topics:
 
 ## Additional Resources
 
-### Reference Documentation
-
-This project includes detailed reference documentation:
-
-- **`docs/GROUPING.md`** - Comprehensive guide to grouping and aggregation in Vespa
-  - Basic grouping syntax and components
-  - Aggregation functions (count, sum, avg, max, min, stddev, percentiles)
-  - Time expressions for date-based grouping
-  - Nested grouping for hierarchical structures
-  - Field collapsing for sample documents
-  - Best practices, troubleshooting, and performance tuning
-  - Based on: https://docs.vespa.ai/en/grouping.html
-
 ### Documentation
 
 - **Grouping Guide**: https://docs.vespa.ai/en/grouping.html
@@ -1019,26 +1006,15 @@ This project includes detailed reference documentation:
 
 ### Related Tutorials
 
-- **Chapter 1**: `simple_ecommerce_app/README.md` - Basic schema and queries
-- **Chapter 2**: `ecommerce_app/README.md` - Full catalog with text search
-- **Chapter 3**: `semantic_ecommerce_app/README.md` - Semantic search with pre-computed embeddings
-- **Chapter 4**: `hybrid_ecommerce_app/README.md` - Hybrid search with RRF
+- **Chapter 1**: [`simple_ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/simple_ecommerce_app) - Basic schema and queries
+- **Chapter 2**: [`ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/ecommerce_app) - Full catalog with text search
+- **Chapter 3**: [`semantic_ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/semantic_ecommerce_app) - Semantic search with pre-computed embeddings
+- **Chapter 4**: [`hybrid_ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/hybrid_ecommerce_app) - Hybrid search with RRF
 
 ### Query Examples
 
 - `queries.cli` - Example grouping queries (CLI format)
 - `queries.http` - Example grouping queries (REST API format)
-
----
-
-## Next Steps
-
-After mastering grouping and aggregation, proceed to:
-
-- **Advanced Aggregations**: Percentiles, standard deviation, custom aggregators
-- **Complex Nested Structures**: Multi-level hierarchies, cross-group analysis
-- **Performance Optimization**: Grouping on large datasets, caching results
-- **Combining with Search**: Grouping filtered search results, faceted search
 
 ---
 
