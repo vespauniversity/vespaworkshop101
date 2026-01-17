@@ -77,6 +77,22 @@ This directory contains the Vespa Fundamentals Course (101) with 5 progressive c
 
 ---
 
+### Chapter 4a: Hybrid Search with RAG
+**Location:** [`hybrid_ecommerce_app_rag/`](hybrid_ecommerce_app_rag/)  
+**📄 [README.md](hybrid_ecommerce_app_rag/README.md)**
+
+**Concepts:**
+- Retrieval: Execute hybrid search (BM25 + semantic) to find relevant products
+- Context Building: Format retrieved products into prompt context
+- LLM Generation: Send context + query to LLM
+- Response: Stream or return generated answer
+
+**Key Files:**
+- `ragapp/schemas/product.sd` - Hybrid ranking profiles
+- `ragapp/services.xml` - services and RAG search chain configuration
+
+---
+
 ### Chapter 5: Sales Data Analytics
 **Location:** [`sales_data_app/`](sales_data_app/)  
 **📄 [README.md](sales_data_app/README.md)**
@@ -103,7 +119,8 @@ This directory contains the Vespa Fundamentals Course (101) with 5 progressive c
 2. **Chapter 2** → Learn CRUD operations and full application setup
 3. **Chapter 3** → Add semantic search capabilities
 4. **Chapter 4** → Combine text and semantic search with hybrid ranking
-5. **Chapter 5** → Explore analytics and time-series data
+5. **Chapter 4a** → Extend the hybrid search application with RAG (Retrieval-Augmented Generation)
+6. **Chapter 5** → Explore analytics and time-series data
 
 ## Additional Resources
 
