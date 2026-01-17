@@ -999,9 +999,9 @@ From here, you are ready for more advanced topics:
 
 ### Related Tutorials
 
-- **Chapter 1**: `simple_ecommerce_app/README.md` - Basic schema and queries
-- **Chapter 2**: `ecommerce_app/README.md` - Full catalog with text search
-- **Chapter 3**: `semantic_ecommerce_app/README.md` - Semantic search with pre-computed embeddings
+- **Chapter 1**: [`simple_ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/simple_ecommerce_app) - Basic schema and queries
+- **Chapter 2**: [`ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/ecommerce_app) - Full catalog with text search
+- **Chapter 3**: [`semantic_ecommerce_app/README.md`](https://github.com/vespauniversity/vespaworkshop101/tree/main/semantic_ecommerce_app) - Semantic search with pre-computed embeddings
 
 ### Query Examples
 
@@ -1013,10 +1013,8 @@ From here, you are ready for more advanced topics:
 
 After mastering hybrid search, proceed to:
 
-- **Advanced Ranking**: Multi-phase ranking, custom rerankers, learning-to-rank
 - **RAG Applications**: Build Retrieval-Augmented Generation systems with Vespa
-- **Production Deployment**: Monitoring, performance tuning, scaling
-- **Multi-Vector Search**: Searching across multiple embedding fields
+- **Advanced Ranking**: Multi-phase ranking, custom rerankers, learning-to-rank (Ranking workshop)
 
 ---
 
@@ -1033,4 +1031,6 @@ This chapter introduced:
 **Key takeaway**: Hybrid search combines the precision of text search with the semantic understanding of vector search, while RRF provides a robust way to merge results from different retrieval methods.
 
 For detailed technical reference, see the Vespa documentation links above.
+
+Proceed to [`Building Retrieval-Augmented Generation systems with Vespa`](https://github.com/vespauniversity/vespaworkshop101/tree/main/hybrid_ecommerce_app_rag)
 
