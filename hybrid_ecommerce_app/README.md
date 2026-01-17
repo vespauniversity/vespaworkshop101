@@ -1013,7 +1013,7 @@ From here, you are ready for more advanced topics:
 
 After mastering hybrid search, proceed to:
 
-- **RAG Applications**: Build Retrieval-Augmented Generation systems with Vespa
+- **RAG Applications**: [Build Retrieval-Augmented Generation systems with Vespa](https://github.com/vespauniversity/vespaworkshop101/tree/main/hybrid_ecommerce_app_rag)
 - **Advanced Ranking**: Multi-phase ranking, custom rerankers, learning-to-rank (Ranking workshop)
 
 ---
