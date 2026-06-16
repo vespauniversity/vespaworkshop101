@@ -345,7 +345,7 @@ Before starting, ensure you have:
 
 2. **Authenticate**:
    ```bash
-   cd simple-ecommerce-app/app
+   cd simple_ecommerce_app/app
    vespa auth login
    vespa auth cert
    # generate/copy the cert from .vespa dirs to this application if needed
